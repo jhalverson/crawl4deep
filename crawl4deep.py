@@ -6,11 +6,13 @@
 # that match a list of patterns. It outputs the count for each 
 # pattern for each user.
 
-# To use the script, cd to the directory containing the user
-# directories and then run it (e.g.,):
+# Save this script in your home directory then cd to the directory
+# containing the user directories and run it (e.g.,):
 
+# cd $HOME
+# wget 
 # cd /home
-# python3 crawl4deep.py > files.out
+# python3 $HOME/crawl4deep.py > $HOME/output.out
 
 # It produces 2 files: files.out and count.dat
 ##################################################################
