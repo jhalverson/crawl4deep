@@ -10,11 +10,11 @@
 # containing the user directories and run it (e.g.,):
 
 # cd $HOME
-# wget 
+# wget https://github.com/jhalverson/crawl4deep/blob/master/crawl4deep.py
 # cd /home
 # python3 $HOME/crawl4deep.py > $HOME/output.out
 
-# It produces 2 files: files.out and count.dat
+# It produces 2 files: output.out and count.dat
 ##################################################################
 
 import os
