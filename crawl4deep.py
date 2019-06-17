@@ -10,7 +10,7 @@
 # containing the user directories and run it (e.g.,):
 
 # cd $HOME
-# wget https://github.com/jhalverson/crawl4deep/blob/master/crawl4deep.py
+# wget https://raw.githubusercontent.com/jhalverson/crawl4deep/master/crawl4deep.py
 # cd /home
 # python3 $HOME/crawl4deep.py > $HOME/output.out
 
