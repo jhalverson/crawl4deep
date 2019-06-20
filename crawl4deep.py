@@ -49,7 +49,7 @@ from functools import reduce
 
 counts = []
 myusers = []
-for user in readable_dirs[:20]:
+for user in readable_dirs:
   fileList = []
   for inDIR in inDIRs:
     for dName, sdName, fList in os.walk(user + inDIR):
