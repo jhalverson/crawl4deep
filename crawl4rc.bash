@@ -34,7 +34,7 @@ home_directories=$(find $1 -maxdepth 1 -mindepth 1 -type d)
 # search pattern
 pattern="*"$2"*"
 
-echo "Starting crawl ...\n"
+echo -e "Starting crawl ...\n"
 for user in $home_directories; do
     count=$(find $user -iname "$pattern" 2>/dev/null | wc -l)
     if [ $count -gt 0 ]; then
@@ -42,4 +42,4 @@ for user in $home_directories; do
     fi
 done
 
-echo "\nDone. See file $outfile"
+echo -e "\nDone. See file $outfile"
