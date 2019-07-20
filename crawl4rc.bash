@@ -1,15 +1,40 @@
 #!/bin/bash
 
-# specifiy the path to the home directories
-path_to_home_directories=/home
+# Jonathan Halverson (halverson@princeton.edu)
+# July 2019
 
-# specifify the search pattern
-pattern="*lammps*"
+# This Bash script crawls home directories looking for file and
+# directory names that match a pattern. It outputs the count
+# for each user to file. It is essentially running this command
+# for each home directory: find . -name '*lammps*' | wc -l
 
-for user in $(ls -d $path_to_home_directories/*)
-do
-    count=$(find $user -iname $pattern 2>/dev/null | wc -l)
+# Example usage:
+#     bash crawl4rc.bash /home lammps
+#     bash crawl4rc.bash /home gromacs
+#     bash crawl4rc.bash /volume2/Users lammps
+
+if [ $# -lt 2 ]; then
+    echo "Please specify a path and search term. Exiting ..."
+    exit
+fi
+
+outfile="count."$2""
+echo `hostname` > $outfile
+echo `date` >> $outfile
+echo "$*" >> $outfile
+
+# list of home directories
+home_directories=$(find $1 -maxdepth 1 -mindepth 1 -type d)
+
+# search pattern
+pattern="*"$2"*"
+
+echo "Starting crawl ...\n"
+for user in $home_directories; do
+    count=$(find $user -iname "$pattern" 2>/dev/null | wc -l)
     if [ $count -gt 0 ]; then
-      echo $user $count | tee -a count.lammps
+      echo $user $count | tee -a $outfile
     fi
 done
+
+echo "\nDone. See file $outfile"
