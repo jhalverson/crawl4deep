@@ -5,8 +5,13 @@
 
 # This Bash script crawls home directories looking for file and
 # directory names that match a pattern. It outputs the count
-# for each user to file. It is essentially running this command
-# for each home directory: find . -name '*lammps*' | wc -l
+# for users with at least one match to file. It is essentially
+# running this command for each home directory:
+#   find . -iname '*lammps*' | wc -l
+
+# The script requires two positional arguments. The first is
+# the absolute path to the home directories and the second is
+# the search term (e.g., matlab).
 
 # Example usage:
 #     bash crawl4rc.bash /home lammps
