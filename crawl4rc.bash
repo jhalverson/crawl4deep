@@ -29,7 +29,7 @@ echo `date` >> $outfile
 echo "$*" >> $outfile
 
 # list of home directories
-home_directories=$(find $1 -maxdepth 1 -mindepth 1 -type d)
+home_directories=$(find $1 -maxdepth 1 -mindepth 1 -type d | sort)
 
 # search pattern
 pattern="*"$2"*"
