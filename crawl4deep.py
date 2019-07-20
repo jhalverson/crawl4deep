@@ -60,6 +60,9 @@ for user in readable_dirs:
              ('site-packages/sympy' not in absFile) and \
              ('site-packages/distributed' not in absFile):
             fileList.append(absFile)
+      #import pdb; pdb.set_trace()
+      if (fnmatch.fnmatch(dName.split('/')[-1].lower(), pattern)):
+        fileList.append(dName)
   if (fileList != []):
     newest = max(os.path.getatime(user), os.path.getmtime(user), os.path.getctime(user))
     mytime = int((time.time() - newest) / (3600 * 24))
