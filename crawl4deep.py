@@ -56,7 +56,7 @@ for user in readable_dirs:
       for fileName in fList:
         for pattern in patterns:
           absFile = os.path.join(dName, fileName)
-          if (fnmatch.fnmatch(fileName, pattern)) and \
+          if (fnmatch.fnmatch(fileName.lower(), pattern)) and \
              ('site-packages/sympy' not in absFile) and \
              ('site-packages/distributed' not in absFile):
             fileList.append(absFile)
