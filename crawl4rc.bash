@@ -36,7 +36,7 @@ pattern="*"$2"*"
 
 echo -e "Starting crawl ...\n"
 for user in $home_directories; do
-    count=$(find $user -iname "$pattern" 2>/dev/null | wc -l)
+    count=$(find -L $user -iname "$pattern" 2>/dev/null | wc -l)
     if [ $count -gt 0 ]; then
       echo $user $count | tee -a $outfile
     fi
