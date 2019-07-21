@@ -23,20 +23,20 @@ if [ $# -lt 2 ]; then
     exit
 fi
 
-outfile="count."$2""
-echo `hostname` > $outfile
-echo `date` >> $outfile
-echo "$*" >> $outfile
-
 # list of home directories
 home_directories=$(find $1 -maxdepth 1 -mindepth 1 -type d | sort)
 
 # search pattern
-pattern="*"$2"*"
+pattern="$2"
+
+outfile="count.$pattern"
+echo `hostname` > $outfile
+echo `date` >> $outfile
+echo "$*" >> $outfile
 
 echo -e "Starting crawl ...\n"
 for user in $home_directories; do
-    count=$(find -L $user -iname "$pattern" 2>/dev/null | wc -l)
+    count=$(find -L $user -iname "*$pattern*" 2>/dev/null | wc -l)
     if [ $count -gt 0 ]; then
       echo $user $count | tee -a $outfile
     fi
