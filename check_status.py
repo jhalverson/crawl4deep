@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/licensed/anaconda3/2019.3/bin/python
 
 import subprocess
 
-with open('precision_emails.txt') as f:
-    lines1 = f.readlines()
-with open('list_to_floe_pni.txt') as f:
-    lines2 = f.readlines()
+with open('emails.txt') as f:
+    lines = f.readlines()
 
-lines = lines1 + lines2
 netids = [line.split('@')[0] for line in lines]
 
 def extract_record(lines, field):
@@ -15,7 +12,6 @@ def extract_record(lines, field):
     if (field in line):
       return line.split(':')[1].strip()
 
-header = ('netid', 'name', 'dept', 'status', 'title', 'academic')
 records = []
 for netid in sorted(netids):
   output = subprocess.run("ldapsearch -x uid=" + netid, shell=True, capture_output=True)
@@ -25,9 +21,14 @@ for netid in sorted(netids):
   title = extract_record(text, 'title:')
   stat = extract_record(text, 'pustatus:')
   aca = extract_record(text, 'puacademiclevel:')
-  records.append((netid, name, dept, stat, title, aca))
+
+  output = subprocess.run("finger " + netid, shell=True, capture_output=True)
+  text = output.stdout.decode("utf-8")
+  office = extract_record(text, 'Office:')
+
+  records.append((netid, name, dept, stat, title, aca, office))
 
 import pandas as pd
-
+header = ('netid', 'name', 'dept', 'status', 'title', 'academic', 'office')
 df = pd.DataFrame(records, columns=header)
-df.to_csv('ug_list.csv', index=True)
+df.sort_values(by=['dept', 'netid']).reset_index(drop=True).to_html('lammps_users.html', index=True)
